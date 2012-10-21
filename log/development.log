@@ -2646,3 +2646,73 @@ Served asset /application.js - 304 Not Modified (0ms)
 
 Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-22 00:43:41 +0200
 Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/movies?sortby=date" for 127.0.0.1 at 2012-10-22 00:48:46 +0200
+  Processing by MoviesController#index as HTML
+  Parameters: {"sortby"=>"date"}
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY release_date[0m
+Rendered movies/index.html.haml within layouts/application (1.0ms)
+Completed 500 Internal Server Error in 151ms
+
+ActionView::Template::Error (There's no Ruby code for = to evaluate.):
+    4: %table#movies
+    5:   %thead
+    6:     %tr
+    7:       %th{:class => ("hilite" if @sortby == "title"), :id => "title_header"}= 
+    8:           link_to "Movie Title", movies_path({:sortby => "title"}), :class => 'someclass'
+    9:       %th Rating
+    10:       %th{:class => ("hilite" if @sortby == "date"), :id => "release_date_header"}= link_to "Release Date", movies_path({:sortby => "date"})
+  app/views/movies/index.html.haml:7
+
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.6ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.7ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (5.6ms)
+
+
+Started GET "/movies?sortby=date" for 127.0.0.1 at 2012-10-22 00:48:59 +0200
+  Processing by MoviesController#index as HTML
+  Parameters: {"sortby"=>"date"}
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" ORDER BY release_date
+Rendered movies/index.html.haml within layouts/application (20.0ms)
+Completed 200 OK in 33ms (Views: 31.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-22 00:48:59 +0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-22 00:48:59 +0200
+Served asset /jquery.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-22 00:49:00 +0200
+Served asset /jquery_ujs.js - 304 Not Modified (9ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-22 00:49:00 +0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/movies?sortby=date" for 127.0.0.1 at 2012-10-22 00:49:47 +0200
+  Processing by MoviesController#index as HTML
+  Parameters: {"sortby"=>"date"}
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY release_date[0m
+Rendered movies/index.html.haml within layouts/application (19.2ms)
+Completed 200 OK in 25ms (Views: 23.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-22 00:49:48 +0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-22 00:49:48 +0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-22 00:49:48 +0200
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-22 00:49:48 +0200
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
