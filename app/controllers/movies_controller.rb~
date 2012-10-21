@@ -8,15 +8,23 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = ['G','PG','PG-13','R']
+    @selected_ratings = selected_ratings
+    @params = params
+
     @sort_by = nil
     if params[:sortby] == "date" then @sortby = "release_date"; end
     if params[:sortby] == "title" then @sortby = "title"; end
-    if @sortby != nil then 
-        @movies = Movie.find(:all, :order => @sortby)
-    else
-        @movies = Movie.all
-    end
-    #if @sortby == "date" then @date_class = "hilite"; else @date_class = ""; end;
+    @movies = Movie.find(:all, :conditions => {:rating => @selected_ratings}, :order => @sortby)
+	#Post.find :all, :conditions => ['author = ? AND title = ?',
+         #            'F2Andy', 'ActiveRecord find']
+
+    @sortby = params[:sortby]
+  end
+
+  def selected_ratings
+    if !params.has_key? :ratings then return @all_ratings; end
+    params[:ratings].keys
   end
 
   def new
