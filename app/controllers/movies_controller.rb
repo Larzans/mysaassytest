@@ -16,6 +16,7 @@ class MoviesController < ApplicationController
     else
         @movies = Movie.all
     end
+    @sortby = params[:sortby]
     #if @sortby == "date" then @date_class = "hilite"; else @date_class = ""; end;
   end
 
