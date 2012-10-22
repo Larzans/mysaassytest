@@ -8,21 +8,52 @@ class MoviesController < ApplicationController
   end
 
   def index
+    # :ratings, :sortby
+
+    validate_settings
+
     @all_ratings = ['G','PG','PG-13','R']
     @selected_ratings = selected_ratings
-    #@params = params
 
     @sort_by = nil
     if params[:sortby] == "date" then @sortby = "release_date"; end
     if params[:sortby] == "title" then @sortby = "title"; end
     @movies = Movie.find(:all, :conditions => {:rating => @selected_ratings}, :order => @sortby)
-	#Post.find :all, :conditions => ['author = ? AND title = ?',
-         #            'F2Andy', 'ActiveRecord find']
-
     @sortby = params[:sortby]
   end
 
+  def validate_settings
+
+    @session_load = false
+
+    if !params.has_key? :sortby then
+	if session.has_key? :sortby then
+	    params[:sortby] = session[:sortby];
+            @session_load = true
+	else
+	    params[:sortby] = none
+	end
+    end
+    session[:sortby] = params[:sortby]
+
+    if !params.has_key? :ratings then
+	params[:ratings] = session[:ratings];
+        @session_load = true
+    end
+
+    if params[:ratings] != []
+	session[:ratings] = params[:ratings]
+    end
+
+   if @session_load == true then
+	flash.keep
+	redirect_to movies_path(request.parameters.merge({:sortby => params[:sortby], :ratings => params[:ratings]}))
+   end
+
+  end
+
   def selected_ratings
+
     if !params.has_key? :ratings then return @all_ratings; end
     params[:ratings].keys
   end
