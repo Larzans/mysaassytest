@@ -9,10 +9,10 @@ class MoviesController < ApplicationController
 
   def index
     # :ratings, :sortby
-
+ @all_ratings = ['G','PG','PG-13','R']
     validate_settings
 
-    @all_ratings = ['G','PG','PG-13','R']
+   
     @selected_ratings = selected_ratings
 
     @sort_by = nil
@@ -31,25 +31,30 @@ class MoviesController < ApplicationController
 	    params[:sortby] = session[:sortby];
             @session_load = true
 	else
-	    params[:sortby] = none
+	    params[:sortby] = ""
 	end
     end
     session[:sortby] = params[:sortby]
 
     if !params.has_key? :ratings then
-	params[:ratings] = session[:ratings];
-        @session_load = true
-    end
+	if session.has_key? :ratings then
+	    params[:ratings] = session[:ratings];
+	    @session_load = true
+	else
 
-    if params[:ratings] != []
-	session[:ratings] = params[:ratings]
+	end
     end
+    if params[:ratings] == []
+	params[:ratings] = @all_ratings
+    end
+    session[:ratings] = params[:ratings]
+
 
    if @session_load == true then
 	flash.keep
 	redirect_to movies_path(request.parameters.merge({:sortby => params[:sortby], :ratings => params[:ratings]}))
    end
-
+#session.clear
   end
 
   def selected_ratings
